@@ -47,4 +47,3 @@ htmlcov/
 examples/.venv/
 examples/__pycache__/
 examples/.env
-examples/Makefile
