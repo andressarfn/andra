@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install-core install-framework install-examples-core test-core test-framework lint-core typecheck-core shell-core shell-framework mock-core real-core
+.PHONY: help install-core install-framework install-examples-core test-core test-framework lint-core lint-framework typecheck-core typecheck-framework shell-core shell-framework mock-core real-core
 
 help:
 	@echo ""
@@ -19,6 +19,8 @@ help:
 	@echo "  -- andra-framework --"
 	@echo "  make install-framework       Install andra-framework dependencies"
 	@echo "  make test-framework          Run test suite"
+	@echo "  make lint-framework          Run ruff linter"
+	@echo "  make typecheck-framework     Run mypy type checker"
 	@echo "  make shell-framework         Activate venv (exit to deactivate)"
 	@echo ""
 
@@ -40,8 +42,14 @@ test-framework:
 lint-core:
 	$(MAKE) -C packages/andra-core lint
 
+lint-framework:
+	$(MAKE) -C packages/andra-framework lint
+
 typecheck-core:
 	$(MAKE) -C packages/andra-core typecheck
+
+typecheck-framework:
+	$(MAKE) -C packages/andra-framework typecheck
 
 mock-core:
 	$(MAKE) -C packages/andra-core mock

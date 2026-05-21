@@ -9,7 +9,7 @@ homepage = "https://github.com/andra-ai/andra"
 repository = "https://github.com/andra-ai/andra"
 keywords = ["llm", "chatbot", "framework", "andra", "ai"]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -36,6 +36,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+testpaths = ["tests"]
 
 [tool.mypy]
 python_version = "3.12"
