@@ -57,7 +57,7 @@ class DefaultConversationPipeline(BaseConversationPipeline):
 
         # Step 4: run the agent
         try:
-            agent_result = self._agent.run(request, context)
+            _ = self._agent.run(request, context)
         except Exception as exc:
             raise PipelineError(f"Agent '{self._agent.name}' raised an error.") from exc
 
