@@ -1,6 +1,4 @@
-from andra_core.models.chat import ChatResponse
-
-from andra_framework import Chatbot
+from andra_framework import Chatbot, ChatResponse
 
 
 class TestChatbot:
@@ -27,12 +25,16 @@ class TestChatbot:
         # but both turns must complete without error.
 
     def test_stateless_with_no_memory_policy(self) -> None:
-        from andra_core.providers.mock import MockLLMProvider
-        from andra_framework import ChatbotBuilder, FrameworkSettings, MemoryPolicy
+        from andra_framework import (
+            ChatbotBuilder,
+            FrameworkSettings,
+            MemoryPolicy,
+            MockProvider,
+        )
 
         chatbot = (
             ChatbotBuilder()
-            .with_provider(MockLLMProvider())
+            .with_provider(MockProvider())
             .with_settings(FrameworkSettings(memory_policy=MemoryPolicy.NONE))
             .build()
         )

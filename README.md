@@ -8,16 +8,24 @@ Monorepo for the **Andra** ecosystem — LLM-powered corporate chatbots.
 
 | Package | Description | Status |
 |---|---|---|
-| [`andra-core`](packages/andra-core/README.md) | Framework-agnostic core library — contracts, pipeline, models, memory, agents, guardrails | Alpha |
-| [`andra-framework`](packages/andra-framework/README.md) | Opinionated framework layer built on top of `andra-core` | Pre-Alpha |
+| [`andra-framework`](packages/andra-framework/README.md) | Public API — fluent builder, sensible defaults, built-in providers | Alpha |
+| [`andra-core`](packages/andra-core/README.md) | Internal foundation — contracts, pipeline, models | Alpha |
 
-### andra-core
+`andra-framework` is the recommended entry point. End users import exclusively from `andra_framework`.
+`andra-core` is an internal implementation detail and is not part of the public API.
 
-`andra-core` provides the foundational building blocks for assembling LLM-powered conversation pipelines. It is framework-agnostic, transport-agnostic, and provider-agnostic — no dependency on FastAPI, OpenAI, Azure, or any other external system. Integrations belong in separate packages.
+---
 
-### andra-framework
+## Getting Started
 
-`andra-framework` is the future opinionated layer of the Andra ecosystem. It will build on top of `andra-core` to provide higher-level abstractions, sensible defaults, and production-ready integrations. Not yet implemented.
+```bash
+cd packages/andra-framework
+make install   # install dependencies
+make mock      # run the mock example
+make help      # see all available commands
+```
+
+See [`packages/andra-framework/README.md`](packages/andra-framework/README.md) for the full usage guide.
 
 ---
 
@@ -25,78 +33,43 @@ Monorepo for the **Andra** ecosystem — LLM-powered corporate chatbots.
 
 ```
 andra/
-├── Makefile                        # Monorepo-level convenience targets
-├── packages/
-│   ├── andra-core/                 # Core library
-│   │   ├── pyproject.toml
-│   │   ├── poetry.toml
-│   │   ├── README.md
-│   │   ├── Makefile
-│   │   ├── src/andra_core/
-│   │   ├── tests/
-│   │   └── examples/
-│   └── andra-framework/            # Framework layer (scaffolded, not yet implemented)
-│       ├── pyproject.toml
-│       ├── README.md
-│       └── src/andra_framework/
+├── Makefile                        # Monorepo-level CI targets
+├── README.md
+└── packages/
+    ├── andra-framework/            # Framework package — start here
+    │   ├── Makefile
+    │   ├── .env.example
+    │   ├── pyproject.toml
+    │   ├── README.md
+    │   ├── examples/
+    │   │   ├── mock_chatbot.py
+    │   │   └── copilot_chatbot.py
+    │   ├── src/andra_framework/
+    │   └── tests/
+    └── andra-core/                 # Core library (internal)
+        ├── Makefile
+        ├── pyproject.toml
+        ├── README.md
+        ├── src/andra_core/
+        └── tests/
 ```
 
 ---
 
-## Working Locally
+## Monorepo Commands
 
-Each package is an independent Poetry project. Work inside the package directory.
-
-### andra-core
+These targets are useful for CI and cross-package development. For local usage, work inside `packages/andra-framework` directly.
 
 ```bash
-cd packages/andra-core
+make install-framework   # install andra-framework
+make test-framework      # run framework tests
+make lint-framework      # ruff
+make typecheck-framework # mypy
 
-# Install dependencies (creates .venv inside the package)
-poetry install
-
-# Run tests
-poetry run pytest
-
-# Run with coverage
-poetry run pytest --cov=andra_core --cov-report=term-missing
-
-# Lint
-poetry run ruff check src/ tests/
-
-# Type check
-poetry run mypy src/
-```
-
-Or use the monorepo-level Makefile from the root:
-
-```bash
-make install-core
-make test-core
-make lint-core
-make typecheck-core
-```
-
-### Examples
-
-```bash
-cd packages/andra-core/examples
-
-# Run the mock pipeline (no external API required)
-make mock
-
-# Install real-provider dependencies and run
-make install
-make real   # requires GITHUB_TOKEN in a .env file
-```
-
-### andra-framework
-
-```bash
-cd packages/andra-framework
-
-# Install (includes andra-core as a local path dependency)
-poetry install
+make install-core        # install andra-core
+make test-core           # run core tests
+make lint-core           # ruff
+make typecheck-core      # mypy
 ```
 
 ---
@@ -104,3 +77,6 @@ poetry install
 ## License
 
 MIT
+
+
+The recommended entry point for users is [`andra-framework`](packages/andra-framework/README.md).

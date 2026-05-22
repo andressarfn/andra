@@ -30,6 +30,12 @@ pytest-cov = "^5.0"
 mypy = "^1.10"
 ruff = "^0.4"
 
+[tool.poetry.group.providers]
+optional = true
+
+[tool.poetry.group.providers.dependencies]
+openai = ">=1.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
