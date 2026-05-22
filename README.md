@@ -20,9 +20,8 @@ Monorepo for the **Andra** ecosystem — LLM-powered corporate chatbots.
 
 ```bash
 cd packages/andra-framework
-make install   # install dependencies
-make mock      # run the mock example
-make help      # see all available commands
+poetry install        # install dependencies
+make mock             # run the mock example
 ```
 
 See [`packages/andra-framework/README.md`](packages/andra-framework/README.md) for the full usage guide.
@@ -33,7 +32,6 @@ See [`packages/andra-framework/README.md`](packages/andra-framework/README.md) f
 
 ```
 andra/
-├── Makefile                        # Monorepo-level CI targets
 ├── README.md
 └── packages/
     ├── andra-framework/            # Framework package — start here
@@ -52,24 +50,6 @@ andra/
         ├── README.md
         ├── src/andra_core/
         └── tests/
-```
-
----
-
-## Monorepo Commands
-
-These targets are useful for CI and cross-package development. For local usage, work inside `packages/andra-framework` directly.
-
-```bash
-make install-framework   # install andra-framework
-make test-framework      # run framework tests
-make lint-framework      # ruff
-make typecheck-framework # mypy
-
-make install-core        # install andra-core
-make test-core           # run core tests
-make lint-core           # ruff
-make typecheck-core      # mypy
 ```
 
 ---

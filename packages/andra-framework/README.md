@@ -9,11 +9,11 @@ Opinionated framework layer for the **Andra** ecosystem — built on top of `and
 ## Quick Start
 
 ```python
-from andra_framework import ChatbotBuilder, MockLLMProvider
+from andra_framework import ChatbotBuilder, MockProvider
 
 chatbot = (
     ChatbotBuilder()
-    .with_provider(MockLLMProvider())
+    .with_provider(MockProvider())
     .build()
 )
 
@@ -94,7 +94,7 @@ All symbols are importable directly from `andra_framework`.
 
 | Symbol | Kind | Description |
 |---|---|---|
-| `MockLLMProvider` | Class | Deterministic mock provider for dev / tests |
+| `MockProvider` | Class | Deterministic mock provider for dev / tests |
 | `DefaultGuardrail` | Class | Length + empty-content guardrail |
 
 ### Extension API — subclass to build custom integrations
@@ -137,10 +137,10 @@ Optional providers with external dependencies live in `andra_framework.providers
 |---|---|---|
 | `GitHubModelsProvider` | `from andra_framework.providers.github_models import GitHubModelsProvider` | `openai`, `GITHUB_TOKEN` |
 
-Install provider dependencies:
+Install provider dependencies (adds `openai` via the optional Poetry group):
 
 ```bash
-make install-examples
+make install-examples   # equivalent to: poetry install --with providers
 ```
 
 ---
@@ -185,11 +185,11 @@ class MyGuardrail(BaseGuardrail):
 ### Stateless chatbot (no memory)
 
 ```python
-from andra_framework import ChatbotBuilder, FrameworkSettings, MemoryPolicy, MockLLMProvider
+from andra_framework import ChatbotBuilder, FrameworkSettings, MemoryPolicy, MockProvider
 
 chatbot = (
     ChatbotBuilder()
-    .with_provider(MockLLMProvider())
+    .with_provider(MockProvider())
     .with_settings(FrameworkSettings(memory_policy=MemoryPolicy.NONE))
     .build()
 )
